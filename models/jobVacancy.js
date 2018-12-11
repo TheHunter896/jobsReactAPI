@@ -7,7 +7,7 @@ var Job = new Schema({
   description: String,
   payment: Number,
   requirements: Array,
-  host: [{type: Schema.ObjectId, ref:"User"}]
+  host: {type: Schema.ObjectId, ref:"User"}
 })
 
 var job = mongoose.model("job", Job)
