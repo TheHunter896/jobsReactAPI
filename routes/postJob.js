@@ -6,6 +6,7 @@ const router = express.Router();
 var Job = require('../models/Job');
 // var user = require('../models/user');
 //create job post
+
 router.post('/', (req, res) => {
 	const { title, duration, requirements, location, salary, description } = req.body;
 	console.log(title, duration, requirements, location, description);
@@ -19,6 +20,7 @@ router.post('/', (req, res) => {
 	})
 		.then((result) => {
 			// user.findOneAndUpdate({_id: }, {})
+			user.findOneAndUpdate({_id: req.cookies.userID}, { $push: {jobsPosted: result._id}} )
 			res.status(201).send({ message: 'This is a message to the REACT app;' });
 		})
 		.catch((error) => {
