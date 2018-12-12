@@ -10,7 +10,12 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 var app = express();
-app.use(cors());
+app.use(
+	cors({
+		origin: 'http://localhost:3000',
+		credentials: true
+	})
+);
 mongoose
 	.connect('mongodb://localhost/jobsapi', { useNewUrlParser: true })
 	.then((x) => {
