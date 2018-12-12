@@ -8,7 +8,7 @@ const hbs          = require('hbs')
 const mongoose     = require('mongoose')
 const logger       = require('morgan')
 const path         = require('path')
-
+const cors         = require('cors')
 
 mongoose
   .connect('mongodb://localhost/jobsapi', {useNewUrlParser: true})
