@@ -10,14 +10,16 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 var app = express();
+
 app.use(
 	cors({
 		origin: 'http://localhost:3000',
 		credentials: true
 	})
 );
+
 mongoose
-	.connect('mongodb://localhost/jobsapi', { useNewUrlParser: true })
+	.connect('mongodb://localhost/jobsAPI', { useNewUrlParser: true })
 	.then((x) => {
 		console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 	})
@@ -55,11 +57,19 @@ app.locals.title = 'Express - Generated with IronGenerator';
 const index = require('./routes/index');
 const register = require('./routes/register.js');
 const postJob = require('./routes/postJob.js');
+const checkEmail = require('./routes/checkEmai.js');
 
 app.use('/', index);
 app.use('/register', register);
 app.use('/post-job', postJob);
+app.use('/checkEmail', checkEmail);
 
-app.listen(4000);
+var os = require('os');
+var ifaces = os.networkInterfaces();
+console.log(ifaces);
 
-module.exports = app;
+let ipAddress = '10.85.2.141';
+
+app.listen(5001, ipAddress, () => {
+	console.log('Listening 5000');
+});

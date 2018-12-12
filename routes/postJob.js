@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
 });
 
 //create job post
+
 router.post('/', (req, res) => {
 	const { title, duration, requirements, location, salary, description } = req.body;
 	let userID = req.cookies.userID;
