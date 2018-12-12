@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var Job = new Schema({
+var JobSchema = new Schema({
 	title: String,
 	duration: String,
 	location: String,
@@ -11,6 +11,6 @@ var Job = new Schema({
 	host: { type: Schema.ObjectId, ref: 'User' }
 });
 
-var job = mongoose.model('job', Job);
+var Job = mongoose.model('Job', JobSchema);
 
-module.exports = job;
+module.exports = Job;
