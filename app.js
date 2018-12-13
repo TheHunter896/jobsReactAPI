@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const local = require('./local');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -68,8 +68,16 @@ var os = require('os');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
 
-let ipAddress = '192.168.0.108';
+// let ipAddress = '10.85.2.141';
 
-app.listen(5001, ipAddress, () => {
-	console.log('Listening 5001');
+// app.listen(5001, ipAddress, () => {
+// 	console.log('Listening 5001');
+// });
+
+let ipAddress = local.ipAddress;
+
+app.listen(local.port, ipAddress, () => {
+	console.log(`Listening ${local.port}`);
 });
+
+module.exports = app;
