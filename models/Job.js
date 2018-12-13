@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 var JobSchema = new Schema({
 	location: {
@@ -15,8 +15,8 @@ var JobSchema = new Schema({
 		salary: String,
 	},
 	host: { type: Schema.ObjectId, ref: 'User' }
-});
+})
 
-var Job = mongoose.model('Job', JobSchema);
+var Job = mongoose.model('Job', JobSchema)
 
-module.exports = Job;
+module.exports = Job

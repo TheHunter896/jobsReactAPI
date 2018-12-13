@@ -26,11 +26,11 @@ router.post('/', (req, res) => {
     username: req.body.username,
     password: req.body.password
   }
-  console.log(userData)
+
   debugger
   user.findOne({"info.base.email": userData.username})
   .then((result) => {
-    console.log(result)
+ 
     bcrypt.compare(userData.password, result.info.base.password, (err, passwordCorrect) => {
       debugger
       if(err) console.log(err)
