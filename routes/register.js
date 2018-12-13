@@ -12,8 +12,7 @@ router.post('/', (req, res) => {
   
   console.log(req.body)
 
-  bcrypt.hash(req.body.password, 5)
-  .then((hashedPassword) => {
+  bcrypt.hash(req.body.password, 5, (err, hashedPassword) => {
     user.create({
       name: req.body.name,
       surname: req.body.surname,
@@ -24,9 +23,9 @@ router.post('/', (req, res) => {
     .then((result) => {
       res.sendStatus(200)
     })
-  })
-  .catch(err => console.log(err))
+    .catch((err) => console.log(err))
 
+  })
 })
 
 module.exports = router
