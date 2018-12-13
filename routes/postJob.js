@@ -4,7 +4,7 @@ const router = express.Router();
 
 //Load Models
 var Job = require('../models/Job');
-var user = require('../models/user');
+var user = require('../models/User');
 
 router.get('/', (req, res) => {
 	Job.find({}, function(err, jobPost) {
