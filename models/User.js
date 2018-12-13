@@ -2,19 +2,27 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var User = new Schema({
-  name: String,
-  surname: String, 
-  email: String,
-  phone: Number,
-  password: String,
-  extendedInfo: {
-    description: String,
-    birthday: String,
-    location: String,
-    locationStreet: String,
-    PostCode: String,
+  info: {
+    base: {
+      name: String,
+      surname: String,
+      email: String,
+      phone: String,
+      password: String,
+    },
+    extendedInfo: {
+      description: String,
+      birthday: String,
+      location: String,
+      locationStreet: String,
+      postCode: String,
+    },
   },
-  jobsPosted: [{type: Schema.ObjectId, ref:"Job"}],
+  jobs: {
+    applied: [[{type: Schema.ObjectId, ref:"Job"}]],
+    saved: [[{type: Schema.ObjectId, ref:"Job"}]],
+    postedJobs: [{type: Schema.ObjectId, ref:"Job"}]
+  }
 })
 
 var user = mongoose.model("users", User)

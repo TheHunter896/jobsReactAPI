@@ -2,12 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var JobSchema = new Schema({
-	title: String,
-	duration: String,
-	location: String,
-	salary: String,
-	description: String,
-	requirements: Array,
+	location: {
+		country: String,
+		city: String,
+		adress: String,
+		postcode: String,
+	},
+	info: {
+		title: String,
+		duration: String,
+		description: String,
+		salary: String,
+	},
 	host: { type: Schema.ObjectId, ref: 'User' }
 });
 
