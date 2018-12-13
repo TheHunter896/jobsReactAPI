@@ -19,18 +19,31 @@ router.post('/', (req, res) => {
 	let userID = req.cookies.userID;
 	// console.log(title, duration, requirements, location, description);
 	Job.create({
-		title: title,
-		duration: duration,
-		requirements: requirements,
-		location: location,
-		salary: salary,
-		description: description
+		info: {
+			title: title,
+			duration: duration,
+			requirements: requirements,
+			salary: salary,
+			description: description
+		},
+		location: {
+			country: '',
+			city: '',
+			adress: '',
+			postcode: ''
+		},
+		jobs: {
+			applied: [],
+			saved: [],
+			jobsPosted: []
+		},
+		host: userID
 	}).then((result) => {
 		user
 			.findOneAndUpdate(
 				{ _id: userID },
 				{
-					$push: { jobsPosted: result._id }
+					$push: { 'jobs.jobsPosted': result._id }
 				}
 			)
 			.then((userResult) => {
