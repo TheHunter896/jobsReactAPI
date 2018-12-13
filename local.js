@@ -1,7 +1,7 @@
 const local = {
+	ipAddress: 'localhost',
 	// ipAddress: '10.85.2.141',
-	// ipAddress: '10.85.2.141',
-	ipAddress: '10.85.4.232',
+	// ipAddress: '10.85.4.232',
 	port: 5000
 };
 
