@@ -35,8 +35,8 @@ router.post('/', (req, res) => {
       debugger
       if(err) console.log(err)
       if(passwordCorrect){
-        res.cookie('Logged In', 'True').send()
-        res.cookie('userID', result._id).send() 
+        res.cookie('Logged In', true)
+        res.cookie('userID', result._id)
         res.send(200)
       }
       else{
