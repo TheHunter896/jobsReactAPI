@@ -20,35 +20,39 @@ var user = require('../models/User');
 //  }
 //));
 
-router.post('/', (req, res) => {
-  var userData = {
-    username: req.body.username,
-    password: req.body.password
-  }
-
-  debugger
-  user.findOne({"info.base.email": userData.username})
-  .then((result) => {
-    debugger
-    if(result == null){
-      res.send(201)
-    }
-    else{ 
-        bcrypt.compare(userData.password, result.info.base.password, (err, passwordCorrect) => {
-        debugger
-        if(err) console.log(err)
-        if(passwordCorrect){
-          res.cookie('Logged In', true)
-          res.cookie('userID', result._id)
-          res.send(200)
-        }
-        else{
-          res.send(201)
-        }
-      })
-    }
-  })
-  .catch((err) => console.log(err))
+router.post('/', passport.authenticate('local'), (req, res) => {
+  res.send(200)
 })
+
+
+  // var userData = {
+  //   username: req.body.username,
+  //   password: req.body.password
+  // }
+
+  // debugger
+  // user.findOne({"info.base.email": userData.username})
+  // .then((result) => {
+  //   debugger
+  //   if(result == null){
+  //     res.send(201)
+  //   }
+  //   else{ 
+  //       bcrypt.compare(userData.password, result.info.base.password, (err, passwordCorrect) => {
+  //       debugger
+  //       if(err) console.log(err)
+  //       if(passwordCorrect){
+  //         res.cookie('Logged In', true)
+  //         res.cookie('userID', result._id)
+  //         res.send(200)
+  //       }
+  //       else{
+  //         res.send(201)
+  //       }
+  //     })
+  //   }
+  // })
+  // .catch((err) => console.log(err))
+// })
 
 module.exports = router;

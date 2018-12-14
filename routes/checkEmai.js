@@ -4,7 +4,7 @@ const router = express.Router()
 var user = require('../models/User')
 
 router.post('/', (req, res) => {
-  
+  debugger
   user.findOne({"info.base.email": req.body.email})
   .then((result) => {
     if(result == null){ 
