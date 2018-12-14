@@ -5,8 +5,8 @@ var JobSchema = new Schema({
 	location: {
 		country: String,
 		city: String,
-		adress: String,
-		postcode: String
+		address: String,
+		zipCode: String
 	},
 	info: {
 		title: String,

@@ -16,18 +16,7 @@ router.get('/', (req, res) => {
 //create job post
 
 router.post('/', (req, res) => {
-	const {
-		title,
-		startDate,
-		duration,
-		address,
-		postCode,
-		city,
-		country,
-		salary,
-		requirements,
-		description
-	} = req.body;
+	const { title, startDate, duration, address, zipCode, city, country, salary, requirements, description } = req.body;
 	let userID = req.cookies.userID;
 	Job.create({
 		info: {
@@ -39,8 +28,8 @@ router.post('/', (req, res) => {
 			description: description
 		},
 		location: {
-			adress: address,
-			postcode: postCode,
+			address: address,
+			zipCode: zipCode,
 			city: city,
 			country: country
 		},
