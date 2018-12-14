@@ -9,35 +9,37 @@ var user = require('../models/User');
 router.get('/', (req, res) => {
 	Job.find({}, function(err, jobPost) {
 		console.log(jobPost);
+		return req.render('Henk');
 	});
 });
 
 //create job post
 
 router.post('/', (req, res) => {
-	const { title, duration, requirements, location, salary, description } = req.body;
+	const { title, startDate, duration, address, zipCode, city, country, salary, requirements, description } = req.body;
 	let userID = req.cookies.userID;
-	// console.log(title, duration, requirements, location, description);
 	Job.create({
 		info: {
 			title: title,
+			startDate: startDate,
 			duration: duration,
 			requirements: requirements,
 			salary: salary,
 			description: description
 		},
 		location: {
-			country: '',
-			city: '',
-			adress: '',
-			postcode: ''
+			address: address,
+			zipCode: zipCode,
+			city: city,
+			country: country
 		},
 		jobs: {
 			applied: [],
 			saved: [],
 			jobsPosted: []
 		},
-		host: userID
+		host: userID,
+		postCreated: new Date()
 	}).then((result) => {
 		user
 			.findOneAndUpdate(
@@ -48,7 +50,7 @@ router.post('/', (req, res) => {
 			)
 			.then((userResult) => {
 				console.log(userResult);
-				res.status(2001).send({ OK: 'submitted' });
+				res.status(201).send({ OK: 'submitted' });
 			})
 			.catch((error) => {
 				res.status(418).send({ error: 'You should drink more coffee' });

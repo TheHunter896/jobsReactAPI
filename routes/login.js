@@ -1,10 +1,10 @@
-const express = require('express')
-const router = express.Router()
-const bcrypt = require('bcrypt')
-const cookie = require('cookie-parser')
-const passport = require('passport')
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const cookie = require('cookie-parser');
+const passport = require('passport');
 
-var user = require('../models/User')
+var user = require('../models/User');
 
 //var LocalStrategy = require('passport-local').strategy
 //
@@ -19,7 +19,6 @@ var user = require('../models/User')
 //    });
 //  }
 //));
-
 
 router.post('/', (req, res) => {
   var userData = {
@@ -50,7 +49,6 @@ router.post('/', (req, res) => {
     }
   })
   .catch((err) => console.log(err))
-
 })
 
-module.exports = router
+module.exports = router;
