@@ -34,20 +34,6 @@ router.post('/', (req, res) => {
 			res.send(jobs);
 		}
 	);
-
-	// Job.find(
-	// 	{
-	// 		$and: query
-	// 	},
-	// 	(err, jobs) => {
-	// 		if (jobs.length === 0) {
-	// 			res.send('nothing');
-	// 		} else {
-	// 			res.send(jobs);
-	// 			console.log(!jobs);
-	// 		}
-	// 	}
-	// );
 });
 
 module.exports = router;
