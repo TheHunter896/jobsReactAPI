@@ -10,9 +10,8 @@ const logger = require('morgan');
 const path = require('path');
 var app = express();
 const passport = require('passport');
-const bcrypt = require('bcrypt')
-const LocalStrategy = require('passport-local').Strategy
-
+const bcrypt = require('bcrypt');
+const LocalStrategy = require('passport-local').Strategy;
 
 app.use(
 	cors({
@@ -37,47 +36,49 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 app.use(passport.initialize());
 app.use(passport.session());
 
-const user = require('./models/User')
+const user = require('./models/User');
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-		debugger
-    user.findOne({ "info.base.email": username }, function (err, user) {
-			debugger
-      if (err) { return done(err); }
-      else if (user === null) { return done(null, false); }
-			else if (user != null){
+passport.use(
+	new LocalStrategy(function(username, password, done) {
+		debugger;
+		user.findOne({ 'info.base.email': username }, function(err, user) {
+			debugger;
+			if (err) {
+				return done(err);
+			} else if (user === null) {
+				return done(null, false);
+			} else if (user != null) {
 				bcrypt.compare(password, user.info.base.password, (err, res) => {
-					debugger
-					if(err){console.log(err); return done(null, false)}
-					else if(res){
-						debugger
+					debugger;
+					if (err) {
+						console.log(err);
+						return done(null, false);
+					} else if (res) {
+						debugger;
+						return done(null, res);
+					} else {
+						debugger;
 						return done(null, res);
 					}
-					else{
-						debugger
-						return done(null, res);
-					}
-				})
-			}
-			else{
-				debugger
+				});
+			} else {
+				debugger;
 				return done(null, user);
 			}
-    });
-  }
-));
+		});
+	})
+);
 
 passport.serializeUser(function(user, done) {
-	debugger
-  done(null, {id: user.id, email: user.email});
+	debugger;
+	done(null, { id: user.id, email: user.email });
 });
- 
+
 passport.deserializeUser(function(id, done) {
-  user.findById(id, function (err, user) {
-		debugger
-    done(err, user);
-  });
+	user.findById(id, function(err, user) {
+		debugger;
+		done(err, user);
+	});
 });
 
 // Middleware Setup
@@ -107,17 +108,19 @@ const index = require('./routes/index');
 const register = require('./routes/register.js');
 const postJob = require('./routes/postJob.js');
 const searchJob = require('./routes/searchJob.js');
+const getJob = require('./routes/getJob.js');
 const checkEmail = require('./routes/checkEmai.js');
 const login = require('./routes/login');
-const profileInfo = require('./routes/profileInfo')
+// const profileInfo = require('./routes/profileInfo')
 //Routes
 app.use('/', index);
 app.use('/register', register);
 app.use('/post-job', postJob);
 app.use('/search-job', searchJob);
+app.use('/get-job', getJob);
 app.use('/checkEmail', checkEmail);
 app.use('/login', login);
-app.use('./profileInfo', profileInfo)
+// app.use('./profileInfo', profileInfo)
 
 var os = require('os');
 var ifaces = os.networkInterfaces();

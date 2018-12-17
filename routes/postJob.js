@@ -6,13 +6,6 @@ const router = express.Router();
 var Job = require('../models/Job');
 var user = require('../models/User');
 
-router.get('/', (req, res) => {
-	Job.find({}, function(err, jobPost) {
-		console.log(jobPost);
-		return req.render('Henk');
-	});
-});
-
 //create job post
 
 router.post('/', (req, res) => {
