@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const checkAuthenticate = require('../public/javascripts/authenticate.js')
+const checkAuthenticate = require('../public/javascripts/authenticate.js');
 
-var User = require('../models/User')
+var User = require('../models/User');
 
 router.get('/', (req, res) => {
   debugger
@@ -45,3 +45,4 @@ router.post('/', (req, res) => {
 
 module.exports = router
 
+module.exports = router;
