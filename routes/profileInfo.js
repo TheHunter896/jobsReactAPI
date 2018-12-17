@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   debugger
   User.findOne({"info.base.email":"dvdbros@hotmail.com"})
   .then((result) => {
+    debugger
     if(result == null){
       debugger
       res.send(201)

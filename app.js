@@ -23,7 +23,7 @@ app.use(cookieParser())
 
 app.use(
 	cors({
-		origin: ['http://localhost:3000', "http://127.0.0.1:3000"],
+		origin: 'http://localhost:3000',
 		credentials: true
 	})
 )
@@ -119,7 +119,7 @@ const searchJob = require('./routes/searchJob.js')
 const getJob = require('./routes/getJob.js')
 const checkEmail = require('./routes/checkEmai.js')
 const login = require('./routes/login')
-const profileInfo = require('./routes/profileInfo')
+const profileInfo = require('./routes/profileInfo.js')
 const authentication = require('./routes/auth')
 
 //Routes
@@ -139,7 +139,7 @@ console.log(ifaces)
 
 let ipAddress = local.ipAddress
 
-app.listen(local.port, ipAddress, () => {
+app.listen(5000, () => {
 	console.log(`Listening ${local.port}`)
 })
 
