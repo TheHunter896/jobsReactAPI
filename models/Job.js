@@ -11,6 +11,7 @@ var JobSchema = new Schema({
 	info: {
 		title: String,
 		duration: String,
+		requirements: String,
 		description: String,
 		salary: String,
 		startDate: Date
