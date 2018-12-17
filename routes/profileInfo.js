@@ -22,5 +22,26 @@ router.get('/', (req, res) => {
   .catch(err => console.log(err))
 })
 
+router.post('/', (req, res) => {
+  
+  var userData = req.body.data
+  // var userDataArray = []
+  // for(const key in userData){
+  //   var name = key
+  //   userDataArray.push({name: userData[key]})
+    
+  // }
+  console.log(userDataArray)
+  
+  console.log(userData)
+
+  User.findOneAndUpdate({"info.base.email":"dvdbros@hotmail.com"}, {userDataArray}) 
+  .then((result) => {
+    res.json(result)
+    res.send(200)
+  })
+  .catch(err => console.log(err))
+})
+
 module.exports = router
 
