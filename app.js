@@ -67,15 +67,15 @@ passport.use(new LocalStrategy(
 				debugger
 				 return done(null, false);
 			}
-    });
-  }
-));
+		});
+	})
+);
 
 passport.serializeUser(function(user, done) {
 	debugger
  	 done(null, {id: user.id, email: user.info.base.email});
 });
- 
+
 passport.deserializeUser(function(id, done) {
 	debugger
   User.findById(id, function (err, user) {
@@ -116,6 +116,7 @@ const index = require('./routes/index');
 const register = require('./routes/register.js');
 const postJob = require('./routes/postJob.js');
 const searchJob = require('./routes/searchJob.js');
+const getJob = require('./routes/getJob.js');
 const checkEmail = require('./routes/checkEmai.js');
 const login = require('./routes/login');
 const profileInfo = require('./routes/profileInfo')
@@ -126,6 +127,7 @@ app.use('/', index);
 app.use('/register', register);
 app.use('/post-job', postJob);
 app.use('/search-job', searchJob);
+app.use('/get-job', getJob);
 app.use('/checkEmail', checkEmail);
 app.use('/login', login);
 app.use('/profileInfo', profileInfo)
