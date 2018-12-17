@@ -41,8 +41,6 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const User = require('./models/User');
 
-const User = require('./models/User');
-
 passport.use(
 	new LocalStrategy(function(username, password, done) {
 		User.findOne({ 'info.base.email': username }, function(err, user) {
