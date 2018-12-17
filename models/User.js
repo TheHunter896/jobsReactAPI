@@ -21,7 +21,7 @@ var User = new Schema({
 	jobs: {
 		applied: [ [ { type: Schema.ObjectId, ref: 'Job' } ] ],
 		saved: [ [ { type: Schema.ObjectId, ref: 'Job' } ] ],
-		postedJobs: [ { type: Schema.ObjectId, ref: 'Job' } ]
+		postedJobs: [ { type: Schema.ObjectId, ref: 'Job' } ],
 	}
 });
 

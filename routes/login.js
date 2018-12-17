@@ -21,6 +21,8 @@ var user = require('../models/User');
 //));
 
 router.post('/', passport.authenticate('local'), (req, res) => {
+  debugger
+  res.cookie("test", "lalalala")
   res.send(200)
 })
 

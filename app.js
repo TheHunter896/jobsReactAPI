@@ -12,11 +12,18 @@ var app = express();
 const passport = require('passport');
 const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
+const expressSession = require('express-session')
 
+
+// Middleware Setup
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use(
 	cors({
-		origin: 'http://localhost:3000',
+		origin: ['http://localhost:3000', "http://127.0.0.1:3000"],
 		credentials: true
 	})
 );
@@ -33,36 +40,32 @@ mongoose
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
-//Passport
-app.use(passport.initialize());
-app.use(passport.session());
 
-const user = require('./models/User')
+
+const User = require('./models/User')
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-		debugger
-    user.findOne({ "info.base.email": username }, function (err, user) {
-			debugger
+	
+    User.findOne({ "info.base.email": username }, function (err, user) {
+
       if (err) { return done(err); }
       else if (user === null) { return done(null, false); }
 			else if (user != null){
 				bcrypt.compare(password, user.info.base.password, (err, res) => {
-					debugger
 					if(err){console.log(err); return done(null, false)}
 					else if(res){
 						debugger
-						return done(null, res);
+						 return done(null, user);
 					}
 					else{
-						debugger
-						return done(null, res);
+						 return done(null, false);
 					}
 				})
 			}
 			else{
 				debugger
-				return done(null, user);
+				 return done(null, false);
 			}
     });
   }
@@ -70,21 +73,27 @@ passport.use(new LocalStrategy(
 
 passport.serializeUser(function(user, done) {
 	debugger
-  done(null, {id: user.id, email: user.email});
+ 	 done(null, {id: user.id, email: user.info.base.email});
 });
  
 passport.deserializeUser(function(id, done) {
-  user.findById(id, function (err, user) {
+	debugger
+  User.findById(id, function (err, user) {
 		debugger
     done(err, user);
   });
 });
 
-// Middleware Setup
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(expressSession({
+	secret: 'thelifeissomagnificentandexsitenceispain',
+	cookie: {
+		secure: true,
+		resave: true
+	}
+}))
 
 // Express View engine setup
 app.use(
@@ -110,6 +119,8 @@ const searchJob = require('./routes/searchJob.js');
 const checkEmail = require('./routes/checkEmai.js');
 const login = require('./routes/login');
 const profileInfo = require('./routes/profileInfo')
+const authentication = require('./routes/auth')
+
 //Routes
 app.use('/', index);
 app.use('/register', register);
@@ -117,7 +128,8 @@ app.use('/post-job', postJob);
 app.use('/search-job', searchJob);
 app.use('/checkEmail', checkEmail);
 app.use('/login', login);
-app.use('./profileInfo', profileInfo)
+app.use('/profileInfo', profileInfo)
+app.use('/auth', authentication)
 
 var os = require('os');
 var ifaces = os.networkInterfaces();
