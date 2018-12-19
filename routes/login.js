@@ -4,7 +4,20 @@ const bcrypt = require('bcrypt');
 const cookie = require('cookie-parser');
 const passport = require('passport');
 
-var user = require('../models/User');
+var User = require('../models/User');
+
+
+
+
+router.get('/', (req, res) => {
+  debugger
+  if(req.signedCookies.loggedIn == true || req.signedCookies.loggedIn == "true"){
+    debugger
+    res.send(200)
+  }
+})
+
+
 
 //var LocalStrategy = require('passport-local').strategy
 //
@@ -20,11 +33,32 @@ var user = require('../models/User');
 //  }
 //));
 
-router.post('/', passport.authenticate('local'), (req, res) => {
-  debugger
-  res.cookie('loggedIn', true, {signed: true})
-  res.cookie('userID', req.session.passport.user.id, {signed: true})
-  res.send(200)
+router.post('/', (req, res) => {
+
+    User.findOne({ 'info.base.email': req.body.username }, function(err, user) {
+      if (err) {
+        res.send(err)
+      } 
+      else if (user === null) {
+        res.send(201)
+      } 
+      else if (user != null) {
+        bcrypt.compare(req.body.password, user.info.base.password, (err, value) => {
+          if (err) {
+            console.log(err);
+            res.send(201)
+          } else if (value) {
+            debugger;
+            res.cookie('loggedIn', true, {signed: true})
+            res.cookie('userID', user._id, {signed: true})
+            res.send(200)
+          } else {
+            res.send(201)
+          }
+        })
+      }
+    })
+  
 })
 
 
