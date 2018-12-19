@@ -6,15 +6,18 @@ var User = require('../models/User');
 
 //save job post
 router.post('/', checkAuthenticate, (req, res) => {
-	let { jobId, userId } = req.body;
+	let { jobId } = req.body;
+	let userID = req.signedCookies.userID;
+	let sessionID = req.session.userID;
+	console.log('REs', req.body);
 	User.findOneAndUpdate(
-		{ _id: userId },
+		{ _id: userID },
 		{
 			$push: { 'jobs.saved': jobId }
 		}
 	)
 		.then((userResult) => {
-			res.status(201).send({ OK: 'submitted' });
+			res.status(200).send({ OK: 'submitted' });
 		})
 		.catch((error) => {
 			res.status(418).send({ error: 'You should drink more coffee' });

@@ -15,7 +15,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
 
 // Middleware Setup
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('keyboard cat'));
@@ -54,14 +54,12 @@ passport.use(
 						console.log(err);
 						return done(null, false);
 					} else if (res) {
-						debugger;
 						return done(null, user);
 					} else {
 						return done(null, false);
 					}
 				});
 			} else {
-				debugger;
 				return done(null, false);
 			}
 		});
@@ -69,14 +67,11 @@ passport.use(
 );
 
 passport.serializeUser(function(user, done) {
-	debugger;
 	done(null, { id: user.id, email: user.info.base.email });
 });
 
 passport.deserializeUser(function(id, done) {
-	debugger;
 	User.findById(id, function(err, user) {
-		debugger;
 		done(err, user);
 	});
 });
@@ -134,8 +129,8 @@ app.use('/login', login);
 app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
 app.use('/save-job', saveJob);
-app.use('logout', logout);
-
+app.use('/logout', logout);
+// app.use(require('./routes/serveJson.js'));
 var os = require('os');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
@@ -147,4 +142,4 @@ app.listen(5000, () => {
 	console.log(`Listening `);
 });
 
-module.exports = app;
+// module.exports = app;
