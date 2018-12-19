@@ -1,41 +1,48 @@
 const express = require('express');
 const router = express.Router();
-const checkAuthenticate = require('../public/javascripts/authenticate.js');
+const checkAuthenticate = require('./authenticate.js');
 
 var User = require('../models/User');
 
-router.get('/', (req, res) => {
+router.get('/', checkAuthenticate, (req, res) => {
   debugger
-  User.findOne({"info.base.email":"dvdbros@hotmail.com"})
-  .then((result) => {
+  if(req.query.isOf == true || req.query.isOffer == "true"){
     debugger
-    if(result == null){
-      debugger
-      res.send(201)
-    }
-    else{
-      debugger
+    User.findOne({_id: req.signedCookies.userID}, {name, email, surname, phone})
+    .then((result) => {
       res.send(result)
       res.sendStatus(200)
-    }
-  })
-  .catch(err => console.log(err))
+    })
+    .catch((err) => console.log(err))
+  }
+  else{
+    User.findOne({_id: req.signedCookies.userID})
+    .then((result) => {
+      debugger
+      if(result == null){
+        debugger
+        res.send(201)
+      }
+      else{
+        debugger
+        res.send(result)
+        res.sendStatus(200)
+      }
+    })
+    .catch(err => console.log(err))
+  }
+  
 })
 
 router.post('/', (req, res) => {
   
   var userData = req.body.data
-  // var userDataArray = []
-  // for(const key in userData){
-  //   var name = key
-  //   userDataArray.push({name: userData[key]})
-    
-  // }
+  
   console.log(userDataArray)
   
   console.log(userData)
 
-  User.findOneAndUpdate({"info.base.email":"dvdbros@hotmail.com"}, {userDataArray}) 
+  User.findOneAndUpdate({_id: req.signedCookies.userID}, {userDataArray}) 
   .then((result) => {
     res.json(result)
     res.send(200)
