@@ -120,6 +120,7 @@ const checkEmail = require('./routes/checkEmai.js');
 const login = require('./routes/login');
 const profileInfo = require('./routes/profileInfo.js');
 const authentication = require('./routes/auth');
+const saveJob = require('./routes/saveJob');
 
 //Routes
 app.use('/', index);
@@ -131,6 +132,7 @@ app.use('/checkEmail', checkEmail);
 app.use('/login', login);
 app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
+app.use('/save-job', saveJob);
 
 var os = require('os');
 var ifaces = os.networkInterfaces();
