@@ -15,7 +15,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
 
 // Middleware Setup
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('keyboard cat'));
@@ -46,25 +46,20 @@ passport.use(
 		User.findOne({ 'info.base.email': username }, function(err, user) {
 			if (err) {
 				return done(err);
-			} 
-			else if (user === null) {
+			} else if (user === null) {
 				return done(null, false);
-			} 
-			else if (user != null) {
+			} else if (user != null) {
 				bcrypt.compare(password, user.info.base.password, (err, res) => {
 					if (err) {
 						console.log(err);
 						return done(null, false);
 					} else if (res) {
-						debugger;
 						return done(null, user);
 					} else {
 						return done(null, false);
 					}
 				});
-			} 
-			else {
-				debugger;
+			} else {
 				return done(null, false);
 			}
 		});
@@ -72,14 +67,11 @@ passport.use(
 );
 
 passport.serializeUser(function(user, done) {
-	debugger;
 	done(null, { id: user.id, email: user.info.base.email });
 });
 
 passport.deserializeUser(function(id, done) {
-	debugger;
 	User.findById(id, function(err, user) {
-		debugger;
 		done(err, user);
 	});
 });
@@ -123,6 +115,7 @@ const checkEmail = require('./routes/checkEmai.js');
 const login = require('./routes/login');
 const profileInfo = require('./routes/profileInfo.js');
 const authentication = require('./routes/auth');
+const saveJob = require('./routes/saveJob');
 const logout = require('./routes/logOut.js');
 
 //Routes
@@ -135,8 +128,9 @@ app.use('/checkEmail', checkEmail);
 app.use('/login', login);
 app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
+app.use('/save-job', saveJob);
 app.use('/logout', logout);
-
+// app.use(require('./routes/serveJson.js'));
 var os = require('os');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
@@ -148,4 +142,4 @@ app.listen(5000, () => {
 	console.log(`Listening `);
 });
 
-module.exports = app;
+// module.exports = app;
