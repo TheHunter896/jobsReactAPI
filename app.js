@@ -46,9 +46,11 @@ passport.use(
 		User.findOne({ 'info.base.email': username }, function(err, user) {
 			if (err) {
 				return done(err);
-			} else if (user === null) {
+			} 
+			else if (user === null) {
 				return done(null, false);
-			} else if (user != null) {
+			} 
+			else if (user != null) {
 				bcrypt.compare(password, user.info.base.password, (err, res) => {
 					if (err) {
 						console.log(err);
@@ -60,7 +62,8 @@ passport.use(
 						return done(null, false);
 					}
 				});
-			} else {
+			} 
+			else {
 				debugger;
 				return done(null, false);
 			}

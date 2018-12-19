@@ -25,8 +25,8 @@ router.get('/', checkAuthenticate, (req, res) => {
       }
       else{
         debugger
-        res.send(result)
-        res.sendStatus(200)
+        res.send(result).status(200)
+        
       }
     })
     .catch(err => console.log(err))

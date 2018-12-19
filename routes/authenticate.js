@@ -2,9 +2,9 @@ var User = require('../models/User.js')
 
 function checkAuthentication(req, res,next){
   debugger
-  if(req.secureCookies.loggedIn){
+  if(req.signedCookies.loggedIn){
     debugger
-    User.findOne({_id: req.secureCookies.userID})
+    User.findOne({_id: req.signedCookies.userID})
     .then((result) => {
       if(result == null){
         res.send(201).end()
