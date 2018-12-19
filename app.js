@@ -138,8 +138,8 @@ console.log(ifaces);
 let ipAddress = '10.85.5.220';
 console.log(ipAddress);
 
-app.listen(5000, () => {
-	console.log(`Listening `);
-});
+// app.listen(5000, () => {
+// 	console.log(`Listening `);
+// });
 
-// module.exports = app;
+module.exports = app;
