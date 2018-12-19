@@ -137,10 +137,12 @@ var os = require('os');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
 
-let ipAddress = local.ipAddress;
+let ipAddress = '10.85.5.220'
+console.log(ipAddress)
+
 
 app.listen(5000, () => {
-	console.log(`Listening ${local.port}`);
+	console.log(`Listening `);
 });
 
 module.exports = app;
