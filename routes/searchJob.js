@@ -7,7 +7,6 @@ var Job = require('../models/Job');
 //search job post
 router.post('/', (req, res) => {
 	const { title, location } = req.body;
-	console.log(req.body);
 	let query = [];
 	if (title) {
 		query.push({ 'info.title': { $regex: title, $options: 'i' } });
