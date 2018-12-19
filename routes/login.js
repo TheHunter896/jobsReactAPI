@@ -22,7 +22,8 @@ var user = require('../models/User');
 
 router.post('/', passport.authenticate('local'), (req, res) => {
   debugger
-  res.cookie("test", "lalalala")
+  res.cookie('loggedIn', true, {signed: true})
+  res.cookie('userID', req.session.passport.user.id, {signed: true})
   res.send(200)
 })
 

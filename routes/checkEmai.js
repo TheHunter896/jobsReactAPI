@@ -6,7 +6,7 @@ var user = require('../models/User')
 
 router.post('/', (req, res) => {
   debugger
-  user.findOne({"info.base.email": req.body.email})
+  user.findOne({_id: req.signedCookies.userID})
   .then((result) => {
     if(result == null){ 
       res.send(200)

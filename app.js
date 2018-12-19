@@ -18,7 +18,7 @@ const expressSession = require('express-session');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('keyboard cat'));
 
 app.use(
 	cors({
@@ -120,8 +120,7 @@ const checkEmail = require('./routes/checkEmai.js');
 const login = require('./routes/login');
 const profileInfo = require('./routes/profileInfo.js');
 const authentication = require('./routes/auth');
-const saveJob = require('./routes/saveJob');
-
+const logout = require('./routes/logOut.js');
 //Routes
 app.use('/', index);
 app.use('/register', register);
@@ -132,16 +131,17 @@ app.use('/checkEmail', checkEmail);
 app.use('/login', login);
 app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
-app.use('/save-job', saveJob);
+app.use('logout', logout);
 
 var os = require('os');
 var ifaces = os.networkInterfaces();
 console.log(ifaces);
 
-let ipAddress = local.ipAddress;
+let ipAddress = '10.85.5.220';
+console.log(ipAddress);
 
 app.listen(5000, () => {
-	console.log(`Listening ${local.port}`);
+	console.log(`Listening `);
 });
 
 module.exports = app;

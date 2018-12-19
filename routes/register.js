@@ -40,8 +40,8 @@ router.post('/', (req, res) => {
 									}
 								})
 								.then((result) => {
-									res.cookie('Logged In', 'True');
-									res.cookie('userID', result._id);
+									res.cookie('loggedIn', true, {signed: true});
+									res.cookie('userID', result._id, {signed: true});
 									res.sendStatus(200);
 								});
 						}
