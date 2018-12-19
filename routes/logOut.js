@@ -3,8 +3,8 @@ const router = express.Router()
 
 
 router.get('/', (req, res) => {
-  req.clearCookie('userID')
-  req.clearCookie('loggedIn')
+  res.clearCookie('userID')
+  res.clearCookie('loggedIn')
   res.send(200)
 })
 

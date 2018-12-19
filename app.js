@@ -124,6 +124,7 @@ const login = require('./routes/login');
 const profileInfo = require('./routes/profileInfo.js');
 const authentication = require('./routes/auth');
 const logout = require('./routes/logOut.js');
+
 //Routes
 app.use('/', index);
 app.use('/register', register);
@@ -134,7 +135,7 @@ app.use('/checkEmail', checkEmail);
 app.use('/login', login);
 app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
-app.use('logout', logout);
+app.use('/logout', logout);
 
 var os = require('os');
 var ifaces = os.networkInterfaces();
