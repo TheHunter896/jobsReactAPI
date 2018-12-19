@@ -16,9 +16,13 @@ router.get('/', checkAuthenticate, (req, res) => {
 		User.findOne({ _id: req.signedCookies.userID })
 			.then((result) => {
 				if (result == null) {
+          debugger
+          console.log("DIDNT FIND ANYTHING FEGGOT")
 					res.send(201);
 				} else {
-					res.send(result).status(200);
+          debugger
+          console.log(result)
+          res.send(result)
 				}
 			})
 			.catch((err) => console.log(err));
@@ -34,12 +38,10 @@ router.post('/', (req, res) => {
 
 	User.findOneAndUpdate({ _id: req.signedCookies.userID }, { userDataArray })
 		.then((result) => {
-			res.json(result);
+
 			res.send(200);
 		})
 		.catch((err) => console.log(err));
 });
-
-module.exports = router;
 
 module.exports = router;

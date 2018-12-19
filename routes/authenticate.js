@@ -6,7 +6,6 @@ function checkAuthentication(req, res, next) {
 			if (result == null) {
 				res.send(201).end();
 			} else {
-				res.send(200);
 				next();
 			}
 		});
