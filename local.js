@@ -5,7 +5,7 @@ const local = {
 	portFront: 80,
 	// port: 5000,
 	// portFront: 3000,
-	environtment: 'production'
+	environment: 'production'
 };
 
 module.exports = local;
