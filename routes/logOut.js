@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 	debugger;
-	res.clearCookie('userID');
+	res.clearCookie('userID', {path: '/'});
 	res.clearCookie('loggedIn');
 	res.send(200);
 });
