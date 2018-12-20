@@ -114,7 +114,6 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
-const index = require('./routes/index');
 const register = require('./routes/register.js');
 const postJob = require('./routes/postJob.js');
 const searchJob = require('./routes/searchJob.js');
@@ -127,7 +126,6 @@ const saveJob = require('./routes/saveJob');
 const logout = require('./routes/logOut.js');
 
 //Routes
-app.use('/', index);
 app.use('/register', register);
 app.use('/post-job', postJob);
 app.use('/search-job', searchJob);
