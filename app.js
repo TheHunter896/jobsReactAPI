@@ -28,7 +28,7 @@ app.use(
 );
 
 mongoose
-	.connect(`mongodb://${local.ipAddress}/jobsAPI`, { useNewUrlParser: true })
+	.connect(`mongodb://localhost:27017/jobsAPI`, { useNewUrlParser: true })
 	.then((x) => {
 		console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 	})
