@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const http = require('http');
+const local = require('../local');
 
 let app = require('../app');
 
@@ -43,6 +44,6 @@ server.on('error', (error) => {
 	}
 });
 
-server.listen(process.env.PORT || 5000, () => {
-	console.log(`Listening on http://localhost:${process.env.PORT}`);
+server.listen(process.env.PORT || local.port, () => {
+	console.log(`Listening on http://localhost:${local.port}`);
 });
