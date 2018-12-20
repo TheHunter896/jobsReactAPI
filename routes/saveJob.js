@@ -9,7 +9,7 @@ router.post('/', checkAuthenticate, (req, res) => {
 	let { jobId } = req.body;
 	let userID = req.signedCookies.userID;
 	let sessionID = req.session.userID;
-	console.log('REs', req.body);
+
 	User.findOneAndUpdate(
 		{ _id: userID },
 		{

@@ -20,8 +20,7 @@ router.get('/', checkAuthenticate, (req, res) => {
 			.then((result) => {
         debugger
 				if (result == null) {
-          debugger
-          console.log("DIDNT FIND ANYTHING FEGGOT")
+					console.log('DIDNT FIND ANYTHING FEGGOT');
 					res.send(201);
 				} else {
           debugger
@@ -35,6 +34,7 @@ router.get('/', checkAuthenticate, (req, res) => {
 router.post('/', checkAuthenticate ,(req, res) => {
   debugger
 
+<<<<<<< HEAD
 	var userData = {
 		info: {}
 	}
@@ -47,6 +47,17 @@ router.post('/', checkAuthenticate ,(req, res) => {
 		res.send(200)
 	})
 	.catch(err => console.log(err))
+=======
+	console.log(userDataArray);
+
+	console.log(userData);
+
+	User.findOneAndUpdate({ _id: req.signedCookies.userID }, { userDataArray })
+		.then((result) => {
+			res.send(200);
+		})
+		.catch((err) => console.log(err));
+>>>>>>> 01ef7a345c8e1bfe3769b1debc2e92758ec86bce
 });
 
 module.exports = router;
