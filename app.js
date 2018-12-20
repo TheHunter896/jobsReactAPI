@@ -22,13 +22,13 @@ app.use(cookieParser('keyboard cat'));
 
 app.use(
 	cors({
-		origin: 'http://localhost:3000',
+		origin: `http://${local.ipAddress}:${local.portFront}`,
 		credentials: true
 	})
 );
 
 mongoose
-	.connect('mongodb://localhost/jobsAPI', { useNewUrlParser: true })
+	.connect(`mongodb://${local.ipAddress}/jobsAPI`, { useNewUrlParser: true })
 	.then((x) => {
 		console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 	})
@@ -98,6 +98,14 @@ app.use(
 	})
 );
 
+//production part
+if (local.environment == 'production') {
+	app.use(express.static(path.join(__dirname, 'build')));
+	app.get('/', function(req, res) {
+		res.sendFile(path.join(_dirname, '/build', 'index.html'));
+	});
+}
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -130,13 +138,8 @@ app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
 app.use('/save-job', saveJob);
 app.use('/logout', logout);
-// app.use(require('./routes/serveJson.js'));
 var os = require('os');
 var ifaces = os.networkInterfaces();
-console.log(ifaces);
-
-let ipAddress = '10.85.5.220';
-console.log(ipAddress);
 
 // app.listen(5000, () => {
 // 	console.log(`Listening `);
