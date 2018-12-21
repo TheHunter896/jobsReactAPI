@@ -34,30 +34,76 @@ router.get('/', checkAuthenticate, (req, res) => {
 router.post('/', checkAuthenticate ,(req, res) => {
   debugger
 
-<<<<<<< HEAD
 	var userData = {
 		info: {}
 	}
 
-	userData[info] = req.body.data
-	
-	User.update({id: req.signedCookies.userID}, {userData})
-	.then(() => {
+	var base = {}
+	var extendedInfo = {} 
+ 
+
+	for(let key in req.body.data){
+		switch(key){
+			case 'name':
+				debugger 
+				base[key] = req.body.data[key]
+				debugger
+				break;
+			case 'surname':
+				debugger 
+				base[key] = req.body.data[key]
+				debugger
+				break;
+			case 'phone':
+				debugger 
+				base[key] = req.body.data[key]
+				debugger
+				break;
+			case 'email':
+				debugger 
+				base[key] = req.body.data[key]
+				debugger
+				break;
+			case 'description':
+				debugger 
+				extendedInfo[key] = req.body.data[key]
+				debugger
+				break;
+			case 'location':
+				debugger 
+				extendedInfo[key] = req.body.data[key]
+				debugger
+				break;
+			case 'locationStreeet':
+				debugger 
+				extendedInfo[key] = req.body.data[key]
+				debugger
+				break;
+			case 'zipCode':
+				debugger 
+				extendedInfo[key] = req.body.data[key]
+				debugger
+				break;
+			case 'birthday':
+				debugger 
+				extendedInfo[key] = req.body.data[key]
+				debugger
+				break;
+		}
+	}
+
+	userData.info = {base}
+	userData.info = {extendedInfo}
+
+	debugger
+
+	User.findOneAndUpdate({id: req.signedCookies.userID}, {userData})
+	.then((result) => {
 		debugger
+		console.log(result)
 		res.send(200)
 	})
-	.catch(err => console.log(err))
-=======
-	console.log(userDataArray);
-
-	console.log(userData);
-
-	User.findOneAndUpdate({ _id: req.signedCookies.userID }, { userDataArray })
-		.then((result) => {
-			res.send(200);
-		})
-		.catch((err) => console.log(err));
->>>>>>> 01ef7a345c8e1bfe3769b1debc2e92758ec86bce
+	.catch(err => {console.log(err); res.status(403).end()})
 });
 
-module.exports = router;
+module.exports = router; 
