@@ -139,7 +139,7 @@ app.use('/logout', logout);
 var os = require('os');
 var ifaces = os.networkInterfaces();
 
-// app.listen(5000, () => {
+// app.listen(5000, local.ipAddress, () => {
 // 	console.log(`Listening `);
 // });
 
