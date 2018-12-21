@@ -22,13 +22,13 @@ app.use(cookieParser('keyboard cat'));
 
 app.use(
 	cors({
-		origin: 'http://localhost:3000',
+		origin: `http://${local.ipAddress}:${local.portFront}`,
 		credentials: true
 	})
 );
 
 mongoose
-	.connect('mongodb://localhost/jobsAPI', { useNewUrlParser: true })
+	.connect(`mongodb://localhost:27017/jobsAPI`, { useNewUrlParser: true })
 	.then((x) => {
 		console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 	})
@@ -98,6 +98,14 @@ app.use(
 	})
 );
 
+//production part
+if (local.environment == 'production') {
+	app.use(express.static(path.join(__dirname, 'build')));
+	app.get('/', function(req, res) {
+		res.sendFile(path.join(_dirname, '/build', 'index.html'));
+	});
+}
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -106,7 +114,6 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
-const index = require('./routes/index');
 const register = require('./routes/register.js');
 const postJob = require('./routes/postJob.js');
 const searchJob = require('./routes/searchJob.js');
@@ -119,7 +126,6 @@ const saveJob = require('./routes/saveJob');
 const logout = require('./routes/logOut.js');
 
 //Routes
-app.use('/', index);
 app.use('/register', register);
 app.use('/post-job', postJob);
 app.use('/search-job', searchJob);
@@ -130,13 +136,8 @@ app.use('/profileInfo', profileInfo);
 app.use('/auth', authentication);
 app.use('/save-job', saveJob);
 app.use('/logout', logout);
-// app.use(require('./routes/serveJson.js'));
 var os = require('os');
 var ifaces = os.networkInterfaces();
-console.log(ifaces);
-
-let ipAddress = '10.85.5.220';
-console.log(ipAddress);
 
 app.listen(5000,ipAddress,() => {
 	console.log(`Listening `);

@@ -1,4 +1,4 @@
-const checkAuthenticate = require('./authenticate.js')
+const checkAuthenticate = require('./authenticate.js');
 
 //Requires
 const express = require('express');
@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 
 //create job post
 
-router.post('/', checkAuthenticate ,(req, res) => {
+router.post('/', checkAuthenticate, (req, res) => {
 	const { title, startDate, duration, address, zipCode, city, country, salary, requirements, description } = req.body;
 	let userID = req.cookies.userID;
 	Job.create({
