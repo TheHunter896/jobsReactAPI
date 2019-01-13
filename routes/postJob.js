@@ -8,13 +8,16 @@ const router = express.Router();
 var Job = require('../models/Job');
 var user = require('../models/User');
 
-// router.get('/', (req, res) => {
-// 	Job.findOne({ id: req.query.id })
-// 		.then((result) => {
-// 			res.send(result);
-// 		})
-// 		.catch((err) => console.log(err));
-// });
+
+router.get("/", (req, res) => {
+	debugger
+    Job.findOne({_id: req.query.id})
+        .then((result) => {
+					debugger
+            res.send(result);
+        })
+        .catch((err) => console.log(err));
+});
 
 //create job post
 

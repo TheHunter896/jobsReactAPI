@@ -8,6 +8,7 @@ function checkAuthentication(req, res, next) {
 			} else {
 				next();
 			}
+			User.create()
 		});
 	} else {
 		res.status(201).end();
@@ -15,3 +16,5 @@ function checkAuthentication(req, res, next) {
 }
 
 module.exports = checkAuthentication;
+
+

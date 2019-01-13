@@ -37,34 +37,4 @@ router.post('/', (req, res) => {
 	});
 });
 
-// var userData = {
-//   username: req.body.username,
-//   password: req.body.password
-// }
-
-//
-// user.findOne({"info.base.email": userData.username})
-// .then((result) => {
-//
-//   if(result == null){
-//     res.send(201)
-//   }
-//   else{
-//       bcrypt.compare(userData.password, result.info.base.password, (err, passwordCorrect) => {
-//
-//       if(err) console.log(err)
-//       if(passwordCorrect){
-//         res.cookie('Logged In', true)
-//         res.cookie('userID', result._id)
-//         res.send(200)
-//       }
-//       else{
-//         res.send(201)
-//       }
-//     })
-//   }
-// })
-// .catch((err) => console.log(err))
-// })
-
 module.exports = router;
