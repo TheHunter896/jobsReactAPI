@@ -22,7 +22,8 @@ app.use(cookieParser('keyboard cat'));
 
 app.use(
 	cors({
-		origin: `http://${local.ipAddress}:${local.portFront}`,
+		// origin: `http://${local.ipAddress}:${local.portFront}`,
+		origin: local.corsOrigin,
 		credentials: true
 	})
 );
@@ -139,8 +140,8 @@ app.use('/logout', logout);
 var os = require('os');
 var ifaces = os.networkInterfaces();
 
-app.listen(5000,ipAddress,() => {
-	console.log(`Listening `);
-});
+// app.listen(5000, local.ipAddress, () => {
+// 	console.log(`Listening `);
+// });
 
 module.exports = app;
